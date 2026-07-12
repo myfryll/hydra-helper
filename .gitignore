@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+rockyou.txt
+logins.txt
+hydra.restore
