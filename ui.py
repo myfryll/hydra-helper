@@ -1,8 +1,13 @@
 from rich import box
 from rich.console import Console
 from rich.table import Table
+from rich.panel import Panel
 
 console = Console()
+
+def success_message(message):
+    console.print(f"[bold green]✓ {message}[/bold green]")
+    
 
 
 def show_summary(data):
@@ -57,7 +62,21 @@ def show_summary(data):
     
     console.print(table)
     
-    
+
+def show_profiles(profiles_list):
+    content = ""
+
+    for index, profile in enumerate(profiles_list, start=1):
+        content += f"{index}. {profile}\n"
+
+    console.print(
+        Panel(
+            content,
+            title="📂 Available profiles",
+            border_style="yellow",
+            expand=False,
+        )
+    )  
 def show_banner():
     banner = r"""
     ██╗  ██╗██╗   ██╗██████╗ ██████╗  █████╗
@@ -71,6 +90,6 @@ def show_banner():
     console.print(f"[bold cyan]{banner}[/bold cyan]")
     console.print(
         "[bold white]           Hydra Helper[/bold white] "
-        "[dim]v0.1[/dim]"
+        "[dim]v0.2[/dim]"
     )
     console.print("[dim]                 by myfryll[/dim]\n")
