@@ -43,15 +43,28 @@ def wizard_main():
     }
 
 def ask_http_options():
-    path = Prompt.ask('Введите путь до формы авторизации (включая /) ')
-    user_field = Prompt.ask('Как называется поле логина? ')
-    pass_field = Prompt.ask('Как называется поле пароля? ')
-    failure_string = Prompt.ask('Строка ошибки ')
-    return {
-        "path":path,
-        "user_field":user_field,
-        "pass_field":pass_field,
-        "failure_string":failure_string
-    }
-        
+    path = Prompt.ask(
+        'Введите путь до формы авторизации (например: /admin/)'
+    ).strip()
 
+    if not path.startswith("/"):
+        path = "/" + path
+
+    if not path.endswith("/"):
+        print("[yellow]Предупреждение:[/yellow] путь не заканчивается на '/'. "
+              "Во многих приложениях это вызывает редирект и Hydra может "
+              "неверно определить успешную авторизацию.")
+
+        if Confirm.ask("Добавить '/' в конец пути?"):
+            path += "/"
+
+    user_field = Prompt.ask("Как называется поле логина?")
+    pass_field = Prompt.ask("Как называется поле пароля?")
+    failure_string = Prompt.ask("Строка ошибки")
+
+    return {
+        "path": path,
+        "user_field": user_field,
+        "pass_field": pass_field,
+        "failure_string": failure_string
+    }

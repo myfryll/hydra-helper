@@ -28,7 +28,7 @@ def build_command(user_data):
     if user_data["port"]:
         command.extend(["-s", str(user_data["port"])])
     if user_data["verbose"]:
-        command.append('-v')
+        command.append('-V')
     
     if user_data["stop_on_success"]:
         command.append('-f')   
